@@ -1,5 +1,6 @@
 package Problems;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static java.lang.System.exit;
@@ -125,9 +126,16 @@ public class TSP implements Problem<int[][]>{
     public int[][] generateNewState(int[][] current){
         Random random = new Random();
         int startingCity = random.nextInt(current.length);
-        for (int i = 0; i < current.length; i++){
-            for
-        }
+        Random rand = new Random();
+        int column = rand.nextInt(N);
+        int currentRow = current[column];
+        int newRow;
+        do{
+            newRow = rand.nextInt(N);
+        }while(newRow==currentRow);
+        int[] newState = Arrays.copyOf(current, current.length);
+        newState[column] = newRow;
+        return newState;
     }
 
     //You can also copy-paste the code below into your TSP.java:
