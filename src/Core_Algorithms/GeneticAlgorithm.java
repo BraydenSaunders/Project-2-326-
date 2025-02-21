@@ -23,10 +23,28 @@ public abstract class GeneticAlgorithm<G> {
      * The probability of an individual being selected
      * is proportional to their fitness score
      */
-    public Individual<G> select(
-            List<Individual<G>> population,
-            Individual<G> indiv){
-        double sum = 0;
+//    public Individual<G> select(List<Individual<G>> population, Individual<G> individual){
+//        double sum = 0;
+//        for (Individual<G> i : population) {
+//            sum += i.getFitnessScore();
+//        }
+//        Individual<G> selected = null;
+//        do {
+//            double v = new Random().nextDouble(sum);
+//            double cumulativeSum = 0;
+//            for(Individual<G> i : population){
+//                cumulativeSum += i.getFitnessScore();
+//                if (v <= cumulativeSum){
+//                    selected = i;
+//                    break;
+//                }
+//            }
+//        } while(selected == individual);
+//        return selected;
+//    }
+    public Individual<G> select(List<Individual<G>> population, Individual<G> individual){
+        Random kIndividualsPercentage = new Random(100);
+        int kIndividuals = (int) (population.size() * kIndividualsPercentage.nextInt());
         for (Individual<G> i : population) {
             sum += i.getFitnessScore();
         }
@@ -41,7 +59,7 @@ public abstract class GeneticAlgorithm<G> {
                     break;
                 }
             }
-        } while(selected == indiv);
+        } while(selected == individual);
         return selected;
     }
     /**
@@ -58,7 +76,7 @@ public abstract class GeneticAlgorithm<G> {
      * @return the mutated new individual
      */
     public abstract Individual<G> mutate(Individual<G> indiv);
-    public abstract double calcFitnessScore (G chromosome);
+    public abstract double calculateFitnessScore (G chromosome);
     public Individual<G> evolve (List<Individual<G>> initPopulation){
         List<Individual<G>> population = initPopulation;
         Collections.sort(population);
@@ -86,7 +104,7 @@ public abstract class GeneticAlgorithm<G> {
             }
             population = newPopulation;
             Collections.sort(population);
-//keep track of the best solution so far
+            //keep track of the best solution so far
             if (population.get(0).getFitnessScore() > best.getFitnessScore()){
                 best = population.get(0);
                 bestGen = generation;
