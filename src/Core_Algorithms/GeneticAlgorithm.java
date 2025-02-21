@@ -40,28 +40,44 @@ public abstract class GeneticAlgorithm<G> {
 //                }
 //            }
 //        } while(selected == individual);
+//        System.out.println(selected);
 //        return selected;
 //    }
-    public Individual<G> select(List<Individual<G>> population, Individual<G> individual){
-        Random kIndividualsPercentage = new Random(100);
-        int kIndividuals = (int) (population.size() * kIndividualsPercentage.nextInt());
+    public Individual<G> select(List<Individual<G>> population, Individual<G> individual) {
+        if (population == null || population.isEmpty()) {
+            throw new IllegalArgumentException("Population cannot be null or empty!");
+        }
+        double sum = 0;
         for (Individual<G> i : population) {
             sum += i.getFitnessScore();
+        }
+        // Prevent sum = 0 issue
+        if (sum == 0) {
+            return population.get(new Random().nextInt(population.size()));
+        }
+        // Prevent infinite loop when only one individual exists
+        if (population.size() == 1) {
+            return population.get(0);
         }
         Individual<G> selected = null;
         do {
             double v = new Random().nextDouble(sum);
             double cumulativeSum = 0;
-            for(Individual<G> i : population){
+
+            for (Individual<G> i : population) {
                 cumulativeSum += i.getFitnessScore();
-                if (v <= cumulativeSum){
+                if (v <= cumulativeSum) {
                     selected = i;
                     break;
                 }
             }
-        } while(selected == individual);
+        } while (selected == individual);
+
+        System.out.println("Selected individual: " + selected);
         return selected;
     }
+
+
     /**
      * Produce an offspring
      * The implementation must NOT modify either of the two parents,
