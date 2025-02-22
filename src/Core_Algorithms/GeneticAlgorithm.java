@@ -47,33 +47,41 @@ public abstract class GeneticAlgorithm<G> {
         if (population == null || population.isEmpty()) {
             throw new IllegalArgumentException("Population cannot be null or empty!");
         }
+
+        Random random = new Random();
+
+        // Ensure at least 1 individual is selected
+        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(100) + 1) / 100.0f)));
+
         double sum = 0;
-        for (Individual<G> i : population) {
-            sum += i.getFitnessScore();
+        List<Individual<G>> selectedIndividuals = new ArrayList<>();
+
+        // Selecting k individuals and calculating sum of fitness
+        for (int i = 0; i < kIndividuals; i++) {
+            Individual<G> selected = population.get(random.nextInt(population.size()));
+            selectedIndividuals.add(selected);
+            sum += selected.getFitnessScore();
         }
+
         // Prevent sum = 0 issue
         if (sum == 0) {
-            return population.get(new Random().nextInt(population.size()));
+            return selectedIndividuals.get(random.nextInt(selectedIndividuals.size()));
         }
-        // Prevent infinite loop when only one individual exists
-        if (population.size() == 1) {
-            return population.get(0);
-        }
+
         Individual<G> selected = null;
         do {
-            double v = new Random().nextDouble(sum);
+            double v = random.nextDouble(sum);
             double cumulativeSum = 0;
 
-            for (Individual<G> i : population) {
-                cumulativeSum += i.getFitnessScore();
+            for (Individual<G> ind : selectedIndividuals) {
+                cumulativeSum += ind.getFitnessScore();
                 if (v <= cumulativeSum) {
-                    selected = i;
+                    selected = ind;
                     break;
                 }
             }
-        } while (selected == individual);
+        } while (selected == individual && population.size() > 1); // Avoid infinite loop
 
-        System.out.println("Selected individual: " + selected);
         return selected;
     }
 
