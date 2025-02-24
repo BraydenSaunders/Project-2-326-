@@ -90,7 +90,7 @@ public class TSP implements Problem<int[]>{
         }while(city1 == city2);
         int[] newState = Arrays.copyOf(current, current.length);
         int temp = newState[city1];
-        newState[city1] = city2;
+        newState[city1] = newState[city2];
         newState[city2] = temp;
         return newState;
     }
