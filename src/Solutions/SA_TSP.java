@@ -5,7 +5,7 @@ import Problems.TSP;
 
 import java.util.Scanner;
 
-public class SA_TSP extends SimulatedAnnealing<int[][]> {
+public class SA_TSP extends SimulatedAnnealing<int[]> {
     private final static long INIT_TIME = 1;
     private final static double INIT_TEMP = 1e13;
     private final static long MAX_TIME = 100_000_000;

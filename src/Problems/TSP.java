@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static java.lang.System.exit;
-public class TSP implements Problem<int[][]>{
 
+public class TSP implements Problem<int[]>{
+    public int size;
     public record Sample(int[][] distanceMatrix) {
         //In the distance matrix, the indices represents cities
         //e.g., distanceMatrix[1][4] specifies the distance between
@@ -79,7 +80,21 @@ public class TSP implements Problem<int[][]>{
                         {181, 197, 161, 190, 182, 190, 160, 148, 128, 121, 103, 99, 107, 130, 130, 95, 51, 51, 81, 79, 37, 27, 58, 107, 90, 0},
                 });
     }
-    public int[][] generateNewState(int[][] current){
+    public int[] generateNewState(int[] current){
+        Random random = new Random();
+        int city1;
+        int city2;
+        do{
+            city1 = random.nextInt(current.length);
+            city2 = random.nextInt(current.length);
+        }while(city1 == city2);
+        int[] newState = Arrays.copyOf(current, current.length);
+        int temp = newState[city1];
+        newState[city1] = city2;
+        newState[city2] = temp;
+        return newState;
+    }
+    public double cost(int[] state){
         Random random = new Random();
         int city1;
         int city2;
@@ -95,14 +110,15 @@ public class TSP implements Problem<int[][]>{
         }
         return newState;
     }
-    public double cost(int[][] state){
-
+    public int[] getInitialState(){
+        int[] initialState = new int[size];
+        for (int i = 0; i < size; i++){
+            initialState[i] = i;
+        }
+        return initialState;
     }
-    public int[][] getInitialState(){
-
-    }
-    public void printState(int[][] state){
-
+    public void printState(int[] state){
+        System.out.println(Arrays.toString(state));
     }
     public double goalCost(){
         return -1;
@@ -111,7 +127,8 @@ public class TSP implements Problem<int[][]>{
     //You can also copy-paste the code below into your TSP.java:
     private final Sample MAP;
 
-    public TSP(int size) {
+    public TSP(int mapSize) {
+        this.size = mapSize;
         switch (size) {
             case 5:
                 this.MAP = Sample.SAMPLE_5;
