@@ -6,7 +6,6 @@ import java.util.Random;
 import static java.lang.System.exit;
 
 public class TSP implements Problem<int[]>{
-    public int size;
     public record Sample(int[][] distanceMatrix) {
         //In the distance matrix, the indices represents cities
         //e.g., distanceMatrix[1][4] specifies the distance between
@@ -80,10 +79,11 @@ public class TSP implements Problem<int[]>{
                         {181, 197, 161, 190, 182, 190, 160, 148, 128, 121, 103, 99, 107, 130, 130, 95, 51, 51, 81, 79, 37, 27, 58, 107, 90, 0},
                 });
     }
+    public int size;
+    public int city1;
+    public int city2;
     public int[] generateNewState(int[] current){
         Random random = new Random();
-        int city1;
-        int city2;
         do{
             city1 = random.nextInt(current.length);
             city2 = random.nextInt(current.length);
@@ -95,26 +95,14 @@ public class TSP implements Problem<int[]>{
         return newState;
     }
     public double cost(int[] state){
-        Random random = new Random();
-        int city1;
-        int city2;
-        do{
-            city1 = random.nextInt(current.length);
-            city2 = random.nextInt(current.length);
-        }while(city1 == city2);
-        int[][] newState = Arrays.copyOf(current, current.length);
-        for (int i = 0; i < newState.length; i++){
-            int temp = newState[i][city1];
-            newState[i][city1] = newState[i][city2];
-            newState[i][city2] = temp;
-        }
-        return newState;
+        return MAP.distanceMatrix[city1][city2];
     }
     public int[] getInitialState(){
         int[] initialState = new int[size];
         for (int i = 0; i < size; i++){
             initialState[i] = i;
         }
+        System.out.println(Arrays.toString(initialState));
         return initialState;
     }
     public void printState(int[] state){
