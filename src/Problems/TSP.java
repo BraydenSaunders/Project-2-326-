@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static java.lang.System.exit;
-import static javax.swing.text.html.HTML.Attribute.N;
-
 public class TSP implements Problem<int[][]>{
 
     public record Sample(int[][] distanceMatrix) {
@@ -97,11 +95,17 @@ public class TSP implements Problem<int[][]>{
         }
         return newState;
     }
-    public double goalCost(){
-        return -1;
-    }
     public double cost(int[][] state){
 
+    }
+    public int[][] getInitialState(){
+
+    }
+    public void printState(int[][] state){
+
+    }
+    public double goalCost(){
+        return -1;
     }
 
     //You can also copy-paste the code below into your TSP.java:
