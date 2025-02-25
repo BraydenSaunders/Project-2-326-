@@ -63,7 +63,8 @@ public class GA_NQueens extends GeneticAlgorithm<int[]> {
         double ELITISM = 0.2;
         int SIZE = 32; //number of queens
         NQueens problem = new NQueens(SIZE);
-        GA_NQueens agent = new GA_NQueens(MAX_GEN,MUTATION_RATE,ELITISM,problem);Individual<int[]> best = agent.evolve(agent.generateInitPopulation(POPULATION_SIZE));
+        GA_NQueens agent = new GA_NQueens(MAX_GEN,MUTATION_RATE,ELITISM,problem);
+        Individual<int[]> best = agent.evolve(agent.generateInitPopulation(POPULATION_SIZE));
         System.out.println("Best solution:");
         problem.printState(best.getChromosome());
         System.out.println("Best cost is: "+problem.cost(best.getChromosome()));

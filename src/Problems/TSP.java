@@ -102,7 +102,6 @@ public class TSP implements Problem<int[]>{
         for (int i = 0; i < size; i++){
             initialState[i] = i;
         }
-        System.out.println(Arrays.toString(initialState));
         return initialState;
     }
     public void printState(int[] state){
@@ -138,6 +137,8 @@ public class TSP implements Problem<int[]>{
         }
         //With the above code, to access the distance matrix, you can do: MAP.distanceMatrix[i][j];
         //it gives you the distance between city i and city j.
-
+    }
+    public int getMapSize(){
+        return size;
     }
 }
