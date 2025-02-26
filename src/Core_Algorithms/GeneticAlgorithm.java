@@ -40,7 +40,6 @@ public abstract class GeneticAlgorithm<G> {
 //                }
 //            }
 //        } while(selected == individual);
-//        System.out.println(selected);
 //        return selected;
 //    }
     public Individual<G> select(List<Individual<G>> population, Individual<G> individual) {
@@ -50,22 +49,15 @@ public abstract class GeneticAlgorithm<G> {
 
         Random random = new Random();
 
-        // Ensure at least 1 individual is selected
-        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(100) + 1) / 100.0f)));
+        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(100 + 1) + 1) / 100.0f)));
 
         double sum = 0;
         List<Individual<G>> selectedIndividuals = new ArrayList<>();
 
-        // Selecting k individuals and calculating sum of fitness
         for (int i = 0; i < kIndividuals; i++) {
             Individual<G> selected = population.get(random.nextInt(population.size()));
             selectedIndividuals.add(selected);
             sum += selected.getFitnessScore();
-        }
-
-        // Prevent sum = 0 issue
-        if (sum == 0) {
-            return selectedIndividuals.get(random.nextInt(selectedIndividuals.size()));
         }
 
         Individual<G> selected = null;
@@ -80,10 +72,11 @@ public abstract class GeneticAlgorithm<G> {
                     break;
                 }
             }
-        } while (selected == individual && population.size() > 1); // Avoid infinite loop
+        } while (selected == individual && population.size() > 1);
 
         return selected;
     }
+
 
 
     /**

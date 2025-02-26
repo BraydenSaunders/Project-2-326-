@@ -16,8 +16,7 @@ public class GA_NQueens extends GeneticAlgorithm<int[]> {
         this.problem = problem;
     }
     public Individual<int[]> reproduce(Individual<int[]> p, Individual<int[]> q) {
-        // Select a random portion of parent1's chromosome by
-        // randomly generating the start & the end positions.
+        // Select a random portion of parent1's chromosome by randomly generating the start & the end positions.
         Random r = new Random();
         int startPos = r.nextInt(p.getChromosome().length);
         int endPos = r.nextInt(p.getChromosome().length);

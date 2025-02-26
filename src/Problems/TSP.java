@@ -95,8 +95,14 @@ public class TSP implements Problem<int[]>{
         return newState;
     }
     public double cost(int[] state){
-        return MAP.distanceMatrix[city1][city2];
+        double totalCost = 0;
+        for (int i = 0; i < state.length - 1; i++) {
+            totalCost += MAP.distanceMatrix[state[i]][state[i + 1]];
+        }
+        totalCost += MAP.distanceMatrix[state[state.length - 1]][state[0]];
+        return totalCost;
     }
+
     public int[] getInitialState(){
         int[] initialState = new int[size];
         for (int i = 0; i < size; i++){
@@ -137,8 +143,5 @@ public class TSP implements Problem<int[]>{
         }
         //With the above code, to access the distance matrix, you can do: MAP.distanceMatrix[i][j];
         //it gives you the distance between city i and city j.
-    }
-    public int getMapSize(){
-        return size;
     }
 }
