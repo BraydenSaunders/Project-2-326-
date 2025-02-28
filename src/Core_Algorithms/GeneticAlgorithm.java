@@ -51,7 +51,7 @@ public abstract class GeneticAlgorithm<G> {
 
         Random random = new Random();
 
-        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(99 - 1) + 1) / 100.0)));
+        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(100 - 1) + 1) / 100.0)));
 
         double sum = 0;
         List<Individual<G>> selectedIndividuals = new ArrayList<>();
@@ -72,7 +72,7 @@ public abstract class GeneticAlgorithm<G> {
                     break;
                 }
             }
-        } while (selected == individual && population.size() > 1);
+        } while (selected == individual);
 
         return selected;
     }

@@ -29,7 +29,6 @@ public class GA_TSP extends GeneticAlgorithm<int[]> {
             startPos = endPos;
             endPos = t;
         }
-
         int[] portionOfParent = new int[p.getChromosome().length];
         Arrays.fill(portionOfParent, -1);
         int index = startPos;
@@ -71,7 +70,6 @@ public class GA_TSP extends GeneticAlgorithm<int[]> {
                 otherChildIndex++;
             }
         }
-        System.out.println(Arrays.toString(childChromosome));
         return new Individual<>(childChromosome, calculateFitnessScore(childChromosome));
     }
 
@@ -94,9 +92,10 @@ public class GA_TSP extends GeneticAlgorithm<int[]> {
     }
 
     public static void main(String[] args) {
-        int MAX_GEN = 12;
+        int MAX_GEN = 230;
         double MUTATION_RATE = 0.1;
-        int POPULATION_SIZE = 13;
+        int POPULATION_SIZE = 600;
+//        int POPULATION_SIZE = 176;
         double ELITISM = 0.2;
         int MAP_SIZE = 6;
         TSP problem = new TSP(MAP_SIZE);
