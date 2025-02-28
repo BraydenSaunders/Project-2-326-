@@ -94,6 +94,7 @@ public class TSP implements Problem<int[]>{
         newState[city2] = temp;
         return newState;
     }
+
     public double cost(int[] state){
         double totalCost = 0;
         for (int i = 0; i < state.length - 1; i++) {
@@ -114,7 +115,7 @@ public class TSP implements Problem<int[]>{
         System.out.println(Arrays.toString(state));
     }
     public double goalCost(){
-        return -1;
+        return 0;
     }
 
     //You can also copy-paste the code below into your TSP.java:

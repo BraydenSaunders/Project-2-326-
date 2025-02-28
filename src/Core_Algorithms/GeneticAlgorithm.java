@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * This class assumes that higher fitness score means more optimal
  * @param <G> The data type of a "gene"
@@ -49,7 +51,7 @@ public abstract class GeneticAlgorithm<G> {
 
         Random random = new Random();
 
-        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(100 + 1) + 1) / 100.0f)));
+        int kIndividuals = Math.max(1, (int) (population.size() * ((random.nextInt(99 - 1) + 1) / 100.0)));
 
         double sum = 0;
         List<Individual<G>> selectedIndividuals = new ArrayList<>();
@@ -59,12 +61,10 @@ public abstract class GeneticAlgorithm<G> {
             selectedIndividuals.add(selected);
             sum += selected.getFitnessScore();
         }
-
         Individual<G> selected = null;
         do {
             double v = random.nextDouble(sum);
             double cumulativeSum = 0;
-
             for (Individual<G> ind : selectedIndividuals) {
                 cumulativeSum += ind.getFitnessScore();
                 if (v <= cumulativeSum) {
