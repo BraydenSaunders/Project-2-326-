@@ -71,6 +71,7 @@ public class GA_TSP extends GeneticAlgorithm<int[]> {
                 otherChildIndex++;
             }
         }
+        System.out.println(Arrays.toString(childChromosome));
         return new Individual<>(childChromosome, calculateFitnessScore(childChromosome));
     }
 
@@ -89,7 +90,7 @@ public class GA_TSP extends GeneticAlgorithm<int[]> {
     }
 
     public double calculateFitnessScore(int[] chromosome) {
-        return (Math.round(1 / problem.cost(chromosome)));
+        return (1 / problem.cost(chromosome));
     }
 
     public static void main(String[] args) {
@@ -97,7 +98,7 @@ public class GA_TSP extends GeneticAlgorithm<int[]> {
         double MUTATION_RATE = 0.1;
         int POPULATION_SIZE = 13;
         double ELITISM = 0.2;
-        int MAP_SIZE = 5;
+        int MAP_SIZE = 6;
         TSP problem = new TSP(MAP_SIZE);
         GA_TSP agent = new GA_TSP(MAX_GEN, MUTATION_RATE, ELITISM, problem);
         Individual<int[]> best = agent.evolve(agent.generateInitPopulation(POPULATION_SIZE));
